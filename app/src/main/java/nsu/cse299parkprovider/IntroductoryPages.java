@@ -27,6 +27,10 @@ public class IntroductoryPages extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introductory_pages);
 
+
+        /***
+         * Initializing widgets
+         * ***/
         mSectionsPagerAdapter = new SectionsPagerAdapter(this.getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container_introductory);
         tabLayout = (TabLayout) findViewById(R.id.tabDots);
@@ -35,8 +39,9 @@ public class IntroductoryPages extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
-//         Starting login page from getting started button
-
+        /***
+         * Starting login page from getting started button
+          */
         btn_get_started.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +50,10 @@ public class IntroductoryPages extends AppCompatActivity {
         });
     }
 
+
+    /***
+     * Creating adapter for viewpager that is swipe-able
+     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -55,7 +64,7 @@ public class IntroductoryPages extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    FirstIntro one = new FirstIntro();
+                    FirstIntro one = new FirstIntro(); //Making an object FirstIntro page to refer in the adapter
                     return one;
                 case 1:
                     SecondIntro two = new SecondIntro();
@@ -70,13 +79,13 @@ public class IntroductoryPages extends AppCompatActivity {
         @Override
         public int getCount() {
             return 3;
-        }
+        } //Number 3 means total page is 3
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "";
+                    return ""; // "" means the titles will be blank.
                 case 1:
                     return "";
                 case 2:

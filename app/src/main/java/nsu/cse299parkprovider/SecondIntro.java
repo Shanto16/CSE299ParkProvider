@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 
 import nsu.cse299parkprovider.R;
 
-/**
- * Created by Shanto on 2/21/2018.
- */
 
 public class SecondIntro extends Fragment {
 
