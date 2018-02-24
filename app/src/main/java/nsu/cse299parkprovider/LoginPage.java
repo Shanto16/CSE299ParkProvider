@@ -52,7 +52,7 @@ public class LoginPage extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LoginPage.this, "App will check for authentication and log in", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(LoginPage.this,MainPage.class));
             }
         });
 
