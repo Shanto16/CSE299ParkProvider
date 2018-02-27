@@ -29,6 +29,18 @@ public class MainPage extends AppCompatActivity {
         setSupportActionBar(mainToolbar);
 
 
+        navView = (NavigationView) findViewById(R.id.navigationView);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, mainToolbar, R.string.drawer_open, R.string.drawer_close);
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.main_container, new Map());
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle("Search space");
+
+
+
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -39,15 +51,6 @@ public class MainPage extends AppCompatActivity {
             }
         });
 
-        navView = (NavigationView) findViewById(R.id.navigationView);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, mainToolbar, R.string.drawer_open, R.string.drawer_close);
-
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_container, new Map());
-        fragmentTransaction.commit();
-        getSupportActionBar().setTitle("Search space");
     }
 
 
@@ -112,6 +115,13 @@ public class MainPage extends AppCompatActivity {
 
 
         }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        actionBarDrawerToggle.syncState();
+    }
 
     }
 
