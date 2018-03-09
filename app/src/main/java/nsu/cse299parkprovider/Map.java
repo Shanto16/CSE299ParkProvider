@@ -33,7 +33,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class Map extends Fragment  implements OnMapReadyCallback {
+public class Map extends Fragment implements OnMapReadyCallback, LocationListener {
 
 
     private GoogleMap gMap;
@@ -43,6 +43,8 @@ public class Map extends Fragment  implements OnMapReadyCallback {
     private static final long MIN_TIME = 400;
     private static final float MIN_DISTANCE = 1000;
 
+    public double curr_lat;
+    public double curr_long;
 
 
     @Override
@@ -55,12 +57,22 @@ public class Map extends Fragment  implements OnMapReadyCallback {
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
+        locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+        }
+        Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+        onLocationChanged(location);
 
         return rootView;
     }
-
-
-
 
 
     @Override
@@ -69,16 +81,19 @@ public class Map extends Fragment  implements OnMapReadyCallback {
         mapView.onResume();
 
     }
+
     @Override
     public void onMapReady(GoogleMap map) {
-        LatLng coordinate = new LatLng(23.814784, 90.425669); //Store these lat lng values somewhere. These should be constant.
+
+        LatLng coordinate = new LatLng(curr_lat, curr_long); //Store these lat lng values somewhere. These should be constant.
         CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
                 coordinate, 18);
         map.animateCamera(location);
-        map.addMarker(new MarkerOptions().position(new LatLng(23.814784,  90.425669)).title("Marker"));
+        map.addMarker(new MarkerOptions().position(new LatLng(curr_lat, curr_long)).title("Marker"));
 
 
     }
+
     @Override
     public void onPause() {
         mapView.onPause();
@@ -86,16 +101,19 @@ public class Map extends Fragment  implements OnMapReadyCallback {
         Log.v(this.getClass().getSimpleName(), "onPause()");
 
     }
+
     @Override
     public void onDestroy() {
         mapView.onDestroy();
         super.onDestroy();
     }
+
     @Override
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -103,7 +121,14 @@ public class Map extends Fragment  implements OnMapReadyCallback {
     }
 
 
+    @Override
+    public void onLocationChanged(Location location) {
+        double lat = location.getLatitude();
+        double longi = location.getLongitude();
 
+        this.curr_lat = lat;
+        this.curr_long = longi;
 
+    }
 }
 
