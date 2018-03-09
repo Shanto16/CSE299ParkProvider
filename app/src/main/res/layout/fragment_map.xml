@@ -5,7 +5,5 @@
     android:id="@+id/mainMap"
     tools:context="nsu.cse299parkprovider.Map">
 
-    <!-- TODO: Update blank fragment layout -->
-
 
 </com.google.android.gms.maps.MapView>
