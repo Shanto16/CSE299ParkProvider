@@ -53,7 +53,7 @@
         <activity
             android:name=".LoginPage"
             android:label="Login " />
-        <activity android:name=".SignUp_Driver" />
+        <activity android:name=".SignupDriver" />
         <activity android:name=".MainPage"></activity>
     </application>
 

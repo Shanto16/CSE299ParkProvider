@@ -57,10 +57,10 @@ public class MainPage extends AppCompatActivity {
 
 
 
-        private void switchFragment(int n) {
+        private void switchFragment(int item) {
 
 
-            switch (n) {
+            switch (item) {
                 case R.id.history:
 //                    NewTrip ft = new NewTrip();
 //                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -97,26 +97,21 @@ public class MainPage extends AppCompatActivity {
 
                     break;
 
-                case R.id.become:
-//                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                    fragmentTransaction.replace(R.id.main_container, new YourTrips());
-//                    fragmentTransaction.commit();
-//                    getSupportActionBar().setTitle("");
-//                    //item.setChecked(true);
-//                    drawerLayout.closeDrawers();
-                    Toast.makeText(this, "User will be taken to website for signing up", Toast.LENGTH_LONG).show();
-
                 case R.id.provider:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.main_container, new MapProvider());
                     fragmentTransaction.commit();
                     getSupportActionBar().setTitle("");
-                    //item.setChecked(true);
                     drawerLayout.closeDrawers();
-
                     break;
 
-
+                case R.id.become:
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, new SignupProvider());
+                    fragmentTransaction.commit();
+                    getSupportActionBar().setTitle("");
+                    drawerLayout.closeDrawers();
+                    break;
 
 
             }

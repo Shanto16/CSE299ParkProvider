@@ -3,7 +3,7 @@ package nsu.cse299parkprovider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SignUp_Driver extends AppCompatActivity {
+public class SignupDriver extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

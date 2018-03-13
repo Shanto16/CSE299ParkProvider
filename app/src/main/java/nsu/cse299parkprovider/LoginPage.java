@@ -7,10 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import nsu.cse299parkprovider.R;
-
 
 
 public class LoginPage extends AppCompatActivity {
@@ -42,7 +38,7 @@ public class LoginPage extends AppCompatActivity {
         tv_openAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginPage.this,SignUp_Driver.class));
+                startActivity(new Intent(LoginPage.this,SignupDriver.class));
             }
         });
 
