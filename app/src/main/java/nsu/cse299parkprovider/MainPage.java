@@ -35,7 +35,7 @@ public class MainPage extends AppCompatActivity {
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_container, new Map());
+        fragmentTransaction.add(R.id.main_container, new MapDriver());
         fragmentTransaction.commit();
         getSupportActionBar().setTitle("Search space");
 
@@ -105,6 +105,14 @@ public class MainPage extends AppCompatActivity {
 //                    //item.setChecked(true);
 //                    drawerLayout.closeDrawers();
                     Toast.makeText(this, "User will be taken to website for signing up", Toast.LENGTH_LONG).show();
+
+                case R.id.provider:
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, new MapProvider());
+                    fragmentTransaction.commit();
+                    getSupportActionBar().setTitle("");
+                    //item.setChecked(true);
+                    drawerLayout.closeDrawers();
 
                     break;
 

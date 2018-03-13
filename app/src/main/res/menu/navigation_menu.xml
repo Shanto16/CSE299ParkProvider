@@ -21,6 +21,9 @@
             android:title="Become Park Provider"
             />
 
+        <item android:id="@+id/provider"
+            android:title="Park provider"
+            />
 
 
     </group>

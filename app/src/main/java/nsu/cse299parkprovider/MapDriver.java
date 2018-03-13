@@ -33,7 +33,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class Map extends Fragment implements OnMapReadyCallback, LocationListener {
+public class MapDriver extends Fragment implements OnMapReadyCallback, LocationListener {
 
 
     private GoogleMap gMap;
@@ -65,6 +65,7 @@ public class Map extends Fragment implements OnMapReadyCallback, LocationListene
         Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
         onLocationChanged(location);
 
+
         return rootView;
     }
 
@@ -73,7 +74,6 @@ public class Map extends Fragment implements OnMapReadyCallback, LocationListene
     public void onResume() {
         super.onResume();
         mapView.onResume();
-
     }
 
     @Override
@@ -84,8 +84,18 @@ public class Map extends Fragment implements OnMapReadyCallback, LocationListene
                 coordinate, 18);
         map.animateCamera(location);
         map.addMarker(new MarkerOptions().position(new LatLng(curr_lat, curr_long)).title("Marker"));
-
-
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        map.setMyLocationEnabled(true);
     }
 
     @Override
