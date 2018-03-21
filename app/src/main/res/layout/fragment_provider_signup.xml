@@ -63,48 +63,95 @@
             android:background="@drawable/bg_edit_texts">
 
             <Spinner
+                android:id="@+id/mArea"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:entries="@array/Areas" />
+                android:entries="@array/Areas"
+                />
+
         </RelativeLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:id="@+id/lat"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edit_texts"
+            android:hint="Latitude"
+            android:inputType="textEmailAddress"
+            android:paddingStart="16dp"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="14sp" />
+
+
+        <EditText
+            android:id="@+id/Long"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edit_texts"
+            android:hint="Longitude"
+            android:inputType="textEmailAddress"
+            android:paddingStart="16dp"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="14sp" />
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_edit_texts"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/none"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:text="If you don't know your lat and long "
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            />
 
-            <EditText
-                android:id="@+id/house"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_edit_texts"
-                android:hint="House Number"
-                android:inputType="textEmailAddress"
-                android:paddingStart="16dp"
-                android:textColor="#fff"
-                android:textColorHint="#fff"
-                android:textSize="14sp" />
+        <TextView
+            android:id="@+id/link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/linktosite"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            />
 
 
-            <EditText
-                android:id="@+id/road"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_edit_texts"
-                android:hint="Road Number"
-                android:inputType="textEmailAddress"
-                android:paddingStart="16dp"
-                android:textColor="#fff"
-                android:textColorHint="#fff"
-                android:textSize="14sp" />
 
-        </LinearLayout>
+
+    </LinearLayout>
+
+
+
 
 
         <LinearLayout
@@ -124,18 +171,30 @@
                 android:textStyle="bold" />
 
             <CheckBox
+                android:id="@+id/high"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="#fff"
-                android:text="Cameras"
+                android:text="High"
                 android:textColor="#fff" />
 
             <CheckBox
+                android:id="@+id/medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="#fff"
-                android:text="Guard"
+                android:text="Medium"
                 android:textColor="#fff" />
+
+
+            <CheckBox
+                android:id="@+id/low"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#fff"
+                android:text="Low"
+                android:textColor="#fff" />
+
 
 
         </LinearLayout>
@@ -143,6 +202,7 @@
 
 
         <Button
+            android:id="@+id/mbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Become Park Provider"

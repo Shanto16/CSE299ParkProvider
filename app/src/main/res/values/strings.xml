@@ -5,6 +5,9 @@
 
     <string name="drawer_open">Drawer opened</string>
     <string name="drawer_close">Drawer closed</string>
+    <string name="linktosite">
+        <a href ="https://www.latlong.net/">Click here</a>
+    </string>
 
     <string-array name="Areas">
         <item>Gulshan</item>
