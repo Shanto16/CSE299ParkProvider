@@ -1,5 +1,6 @@
 package nsu.cse299parkprovider;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainPage extends AppCompatActivity {
 
@@ -112,6 +115,24 @@ public class MainPage extends AppCompatActivity {
                     getSupportActionBar().setTitle("");
                     drawerLayout.closeDrawers();
                     break;
+
+
+
+                case R.id.logout:
+
+
+
+
+                FirebaseAuth.getInstance().signOut();
+                       Intent intent = new Intent(MainPage.this, LoginPage.class);
+                       startActivity(intent);
+                        finish();
+
+                drawerLayout.closeDrawers();
+
+                    break;
+
+
 
 
             }
