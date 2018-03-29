@@ -97,13 +97,14 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
     @Override
     public void onMapReady(final GoogleMap map) {
 
-
+        //Log.d("Starting","App is started");
 
         LatLng coordinate = new LatLng(curr_lat, curr_long); //Store these lat lng values somewhere. These should be constant.
         CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
                 coordinate, 18);
         map.animateCamera(location);
         map.addMarker(new MarkerOptions().position(new LatLng(curr_lat, curr_long)).title("Marker"));
+
 
 
         databaseprovider = FirebaseDatabase.getInstance().getReference("provider");
@@ -119,10 +120,13 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
                     {
                         double d = Double.parseDouble(p.getLatno());
                         double d1 = Double.parseDouble(p.getLongno());
-                        LatLng latLng = new LatLng(d,d1);
-                        if (map != null) {
-                            marker = map.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-                        }
+                        //LatLng latLng = new LatLng(d,d1);
+
+                        Log.d("Lattitude",p.getLatno());
+                        Log.d("Longitude",p.getLongno());
+                       // if (map != null) {
+                       //     marker = map.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                       // }
                 }
 
 
