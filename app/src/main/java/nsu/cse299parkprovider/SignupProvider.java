@@ -36,6 +36,8 @@ public class SignupProvider extends Fragment {
     TextView text;
     Button provider;
     DatabaseReference databaseUser;
+    DatabaseReference newuser;
+
 
 
     @Override
@@ -46,6 +48,7 @@ public class SignupProvider extends Fragment {
 
 
         databaseUser = FirebaseDatabase.getInstance().getReference("provider");
+        newuser = FirebaseDatabase.getInstance().getReference("info");
         text = (TextView) rootView.findViewById(R.id.link);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -65,6 +68,7 @@ public class SignupProvider extends Fragment {
             @Override
             public void onClick(View view) {
                 addprovider();
+                addinfo();
 
             }
         });
@@ -73,6 +77,23 @@ public class SignupProvider extends Fragment {
 
 
         return rootView;
+    }
+
+
+    private  void addinfo(){
+
+        String lat = latitude.getText().toString().trim();
+        String Long = longitude.getText().toString().trim();
+
+        if(!TextUtils.isEmpty(lat) && !TextUtils.isEmpty(Long) ){
+            String id = newuser.push().getKey();
+            info info1 = new info(lat,Long);
+            newuser.child(id).setValue(info1);
+
+        }
+        else makeText(getActivity(), "Please fill up all the fields properly", LENGTH_SHORT).show();
+
+
     }
 
     private  void addprovider(){

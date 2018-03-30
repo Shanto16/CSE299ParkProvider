@@ -106,6 +106,9 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
         map.addMarker(new MarkerOptions().position(new LatLng(curr_lat, curr_long)).title("Marker"));
 
 
+        /*
+
+
 
         databaseprovider = FirebaseDatabase.getInstance().getReference("provider");
         databaseprovider.addListenerForSingleValueEvent(new ValueEventListener() {
