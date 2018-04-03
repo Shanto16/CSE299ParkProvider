@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -31,6 +32,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DatabaseReference;
 
 
 public class MapProvider extends Fragment implements OnMapReadyCallback, LocationListener {
@@ -38,6 +40,7 @@ public class MapProvider extends Fragment implements OnMapReadyCallback, Locatio
 
     private GoogleMap gMap;
     private MapView mapView;
+    private Switch aSwitch;
 
     private LocationManager locationManager;
     private static final long MIN_TIME = 400;
@@ -45,6 +48,8 @@ public class MapProvider extends Fragment implements OnMapReadyCallback, Locatio
 
     public double curr_lat;
     public double curr_long;
+
+    DatabaseReference databaseprovider;
 
 
     @Override
@@ -56,6 +61,7 @@ public class MapProvider extends Fragment implements OnMapReadyCallback, Locatio
         mapView = rootView.findViewById(R.id.mainMapProvider);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+        aSwitch = rootView.findViewById(R.id.Switch);
 
         locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&

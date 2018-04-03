@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:shadowRadius="4"
-            android:text="Ivan Doloudin"
+            android:text="Jahid Hasan Anik"
             android:textColor="#fff"
             android:textSize="20sp"
             android:textStyle="bold"

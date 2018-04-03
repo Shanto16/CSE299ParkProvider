@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -29,10 +30,9 @@ public class SignupProvider extends Fragment {
     Spinner area;
     EditText latitude;
     EditText longitude;
-    CheckBox high;
-    CheckBox medium;
-
-    CheckBox low;
+    RadioButton high;
+    RadioButton medium;
+    RadioButton low;
     TextView text;
     Button provider;
     DatabaseReference databaseUser;
@@ -53,15 +53,15 @@ public class SignupProvider extends Fragment {
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
 
-                email = (EditText) rootView.findViewById(R.id.mEmail);
+        email = (EditText) rootView.findViewById(R.id.mEmail);
         password = (EditText) rootView.findViewById(R.id.mPassword);
         phoneno = (EditText) rootView.findViewById(R.id.mPhone);
         latitude = (EditText) rootView.findViewById(R.id.lat);
         longitude = (EditText) rootView.findViewById(R.id.Long);
         area = (Spinner) rootView.findViewById(R.id.mArea);
-        high = (CheckBox) rootView.findViewById(R.id.high);
-        medium = (CheckBox) rootView.findViewById(R.id.medium);
-        low = (CheckBox)  rootView.findViewById(R.id.low);
+        high =  rootView.findViewById(R.id.high);
+        medium =  rootView.findViewById(R.id.medium);
+        low =   rootView.findViewById(R.id.low);
         provider = (Button) rootView.findViewById(R.id.mbutton);
 
         provider.setOnClickListener(new View.OnClickListener() {
@@ -84,10 +84,11 @@ public class SignupProvider extends Fragment {
 
         String lat = latitude.getText().toString().trim();
         String Long = longitude.getText().toString().trim();
+        boolean Available = false;
 
         if(!TextUtils.isEmpty(lat) && !TextUtils.isEmpty(Long) ){
             String id = newuser.push().getKey();
-            info info1 = new info(lat,Long);
+            info info1 = new info(lat,Long, Available);
             newuser.child(id).setValue(info1);
 
         }
@@ -107,15 +108,27 @@ public class SignupProvider extends Fragment {
         String Long = longitude.getText().toString().trim();
 
 
-        String High = high.getText().toString().trim();
-        String Medium = medium.getText().toString().trim();
-        String Low = low.getText().toString().trim();
+        String High = high.getText().toString();
+        String Medium = medium.getText().toString();
+        String Low = low.getText().toString();
 
         if(!TextUtils.isEmpty(Email) && !TextUtils.isEmpty(Password) && !TextUtils.isEmpty(Phone) && !TextUtils.isEmpty(Area)
                 && !TextUtils.isEmpty(lat) && !TextUtils.isEmpty(Long) ){
             String id = databaseUser.push().getKey();
-            provider provider1 = new provider(Email, Password, Phone,Area,lat,Long,High,Medium,Low);
-            databaseUser.child(id).setValue(provider1);
+            if(high.isChecked()){
+                provider provider1 = new provider(Email, Password, Phone,Area,lat,Long,High,false);
+                databaseUser.child(id).setValue(provider1);
+
+
+            } else if(medium.isChecked()){
+                provider provider1 = new provider(Email, Password, Phone,Area,lat,Long,Medium,false);
+                databaseUser.child(id).setValue(provider1);
+
+            }else {
+                provider provider1 = new provider(Email, Password, Phone,Area,lat,Long,Low,false);
+                databaseUser.child(id).setValue(provider1);
+
+            }
             makeText(getActivity(), " Provider Added Successfully", LENGTH_SHORT).show();
         }
         else makeText(getActivity(), "Please fill up all the fields properly", LENGTH_SHORT).show();

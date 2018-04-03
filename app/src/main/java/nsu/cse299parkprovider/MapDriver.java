@@ -1,45 +1,37 @@
 package nsu.cse299parkprovider;
 
-import android.*;
 import android.Manifest;
-import android.content.Context;
-import android.content.IntentSender;
+import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
 public class MapDriver extends Fragment implements OnMapReadyCallback, LocationListener {
@@ -54,14 +46,15 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
 
     public double curr_lat;
     public double curr_long;
-   // public Latlong l1;
-   DatabaseReference databaseprovider;
+
+    public double lat;
+    public double longno;
+
+
+    // public Latlong l1;
+    DatabaseReference databaseprovider;
     Marker marker;
-    List<provider> venueList;
-
-
-
-
+   // ArrayList<provider> venueList;
 
 
     @Override
@@ -69,6 +62,7 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
+        //venueList = new ArrayList<info>();
 
         mapView = rootView.findViewById(R.id.mainMap);
         mapView.onCreate(savedInstanceState);
@@ -81,7 +75,6 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
         }
         Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
         onLocationChanged(location);
-
 
 
         return rootView;
@@ -103,52 +96,96 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
         CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
                 coordinate, 18);
         map.animateCamera(location);
-        map.addMarker(new MarkerOptions().position(new LatLng(curr_lat, curr_long)).title("Marker"));
-
-
-        /*
-
-
+//        map.addMarker(new MarkerOptions().position(new LatLng(curr_lat, curr_long)).title("Marker"));
+        //map.addMarker(new MarkerOptions().position(new LatLng(lat, longno)).title("Marker"));
 
         databaseprovider = FirebaseDatabase.getInstance().getReference("provider");
-        databaseprovider.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseprovider.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot s : dataSnapshot.getChildren()) {
-                    //getting artist
-                    provider p = s.getValue(provider.class);
-                    venueList.add(p);
-                    for (int i = 0; i < venueList.size(); i++)
-                    {
-                        double d = Double.parseDouble(p.getLatno());
-                        double d1 = Double.parseDouble(p.getLongno());
-                        //LatLng latLng = new LatLng(d,d1);
+                for ( final DataSnapshot s : dataSnapshot.getChildren()) {
+                    // for (int i = 0; i < venueList.size(); i++)
+                    //{
+                    //  int i=0;
 
-                        Log.d("Lattitude",p.getLatno());
-                        Log.d("Longitude",p.getLongno());
-                       // if (map != null) {
-                       //     marker = map.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-                       // }
+                    provider p = new provider();
+                    p = s.getValue(provider.class);
+                    //venueList.add(p);
+                    double d = Double.parseDouble(p.getLatno());
+                    double d1 = Double.parseDouble(p.getLongno());
+
+                     final Marker mMarker = map.addMarker(new MarkerOptions()
+                            .position(new LatLng(d, d1))
+                            .title(p.getArea()));
+                   // mMarker.setTag(p.getEmail());
+
+
+                    map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                        @Override
+                        public boolean onMarkerClick(final Marker marker) {
+
+                            provider prvdr = new provider();
+                            prvdr = s.getValue(provider.class);
+                          // if(prvdr.getEmail()==mMarker.getTag()){
+
+                    //        }
+
+
+                            final Dialog dialog = new Dialog(getContext());
+                            dialog.setContentView(R.layout.model_marker_details);
+                            dialog.setTitle(prvdr.getArea());
+
+                            TextView area = dialog.findViewById(R.id.area);
+                            TextView phone = dialog.findViewById(R.id.phone);
+                            TextView security = dialog.findViewById(R.id.security);
+                            TextView availability = dialog.findViewById(R.id.availability);
+                            TextView fare = dialog.findViewById(R.id.fare);
+                            Button book = dialog.findViewById(R.id.book_btn);
+
+
+                            area.setText("Area: " + prvdr.getArea());
+                            phone.setText("Phone: " + prvdr.getPhone());
+                            security.setText("Security: " +prvdr.getSecurity());
+
+                            book.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Toast.makeText(getContext(), "Booked", Toast.LENGTH_LONG).show();
+                                    mMarker.remove();
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.show();
+
+                            return false;
+                        }
+                    });
+
+//                    map.addMarker(new MarkerOptions().position(new LatLng(d, d1)).title("Area: " + p.getArea() + "\nPhone: " + p.getPhone()));
+                    // Toast.makeText(getContext(), "lat "+ d+ "long" + d1, Toas0t.LENGTH_LONG).show();
+
+
+                    // Log.d("Lattitude",p.getLatno());
+                    // Log.d("Longitude",p.getLongno());
+                    //}
+
+
+                    Toast.makeText(getContext(), "list size" + p.getArea() + "\n" + "values " + s.getValue(), Toast.LENGTH_SHORT).show();
+
+                    // i++;
                 }
 
 
             }
 
-
-
-                   }
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
 
 
-
-
         });
-
-
 
 
         //Latlong l2 = l1.getLatLong();
@@ -171,11 +208,6 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
             return;
         }
         map.setMyLocationEnabled(true);
-
-
-
-
-
 
 
     }

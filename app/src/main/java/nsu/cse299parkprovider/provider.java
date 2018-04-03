@@ -12,20 +12,22 @@ public class provider {
     String area;
     String latno;
     String longno;
-    String high;
-    String medium;
-    String low;
+    String security;
+    boolean available;
 
-    public provider(String email, String password, String phone, String area, String latno, String longno, String high, String medium, String low) {
+public provider(){
+
+}
+    public provider(String email, String password, String phone, String area, String latno, String longno, String security,boolean available) {
         this.email = email;
         this.password = password;
         this.phone = phone;
         this.area = area;
         this.latno = latno;
         this.longno = longno;
-        this.high = high;
-        this.medium = medium;
-        this.low = low;
+        this.security = security;
+        this.available = available;
+
     }
 
     public String getEmail() {
@@ -76,27 +78,20 @@ public class provider {
         this.longno = longno;
     }
 
-    public String getHigh() {
-        return high;
+    public String getSecurity() {
+        return security;
     }
 
-    public void setHigh(String high) {
-        this.high = high;
+    public void setSecurity(String security) {
+        this.security = security;
+    }
+    public boolean getAvailable() {
+        return available;
     }
 
-    public String getMedium() {
-        return medium;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
-    public void setMedium(String medium) {
-        this.medium = medium;
-    }
 
-    public String getLow() {
-        return low;
-    }
-
-    public void setLow(String low) {
-        this.low = low;
-    }
 }

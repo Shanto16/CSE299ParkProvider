@@ -168,32 +168,42 @@
                 android:text="Security Level:"
                 android:textColor="#fff"
                 android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+
                 android:textStyle="bold" />
 
-            <CheckBox
-                android:id="@+id/high"
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="#fff"
-                android:text="High"
-                android:textColor="#fff" />
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="#fff"
-                android:text="Medium"
-                android:textColor="#fff" />
+                <RadioButton
+                    android:id="@+id/high"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#fff"
+                    android:text="High"
+                    android:textColor="#fff" />
+
+                <RadioButton
+                    android:id="@+id/medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#fff"
+                    android:text="Medium"
+                    android:textColor="#fff" />
 
 
-            <CheckBox
-                android:id="@+id/low"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="#fff"
-                android:text="Low"
-                android:textColor="#fff" />
+                <RadioButton
+                    android:id="@+id/low"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#fff"
+                    android:text="Low"
+                    android:textColor="#fff" />
+
+            </RadioGroup>
 
 
 
