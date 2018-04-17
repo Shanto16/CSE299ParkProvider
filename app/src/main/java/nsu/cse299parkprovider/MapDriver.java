@@ -2,6 +2,7 @@ package nsu.cse299parkprovider;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -25,11 +26,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -53,7 +56,12 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
 
     // public Latlong l1;
     DatabaseReference databaseprovider;
+    DatabaseReference databaseprovider2;
+    private FirebaseAuth mAuth;
     Marker marker;
+    public user u2= new user();
+
+    public provider p = new provider();
    // ArrayList<provider> venueList;
 
 
@@ -67,6 +75,7 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
         mapView = rootView.findViewById(R.id.mainMap);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+        //mAuth = FirebaseAuth.getInstance();
 
         locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -98,18 +107,41 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
         map.animateCamera(location);
 //        map.addMarker(new MarkerOptions().position(new LatLng(curr_lat, curr_long)).title("Marker"));
         //map.addMarker(new MarkerOptions().position(new LatLng(lat, longno)).title("Marker"));
+        u2.setEmail("rahbar916@gmail.com");
+        u2.setPhone("01620206937");
+        Gson gson = new Gson();
+        final String myJson = gson.toJson(u2);
 
         databaseprovider = FirebaseDatabase.getInstance().getReference("provider");
-        databaseprovider.addValueEventListener(new ValueEventListener() {
+//        databaseprovider2 = FirebaseDatabase.getInstance().getReference("user");
+//        databaseprovider2.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for ( DataSnapshot d : dataSnapshot.getChildren()){
+//                    user u = new user();
+//                    u = d.getValue(user.class);
+//                    if(mAuth.getCurrentUser().getEmail()==u.getEmail()){
+//                        u2=u;
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        databaseprovider.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for ( final DataSnapshot s : dataSnapshot.getChildren()) {
+                for (  DataSnapshot s : dataSnapshot.getChildren()) {
                     // for (int i = 0; i < venueList.size(); i++)
                     //{
                     //  int i=0;
 
-                    provider p = new provider();
+                    //provider p = new provider();
                     p = s.getValue(provider.class);
                     //venueList.add(p);
                     double d = Double.parseDouble(p.getLatno());
@@ -119,14 +151,15 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
                             .position(new LatLng(d, d1))
                             .title(p.getArea()));
                    // mMarker.setTag(p.getEmail());
-
+                   // Toast.makeText(getContext(), "list size" + p.getArea() + "\n" + "values " + s.getValue(), Toast.LENGTH_SHORT).show();
 
                     map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                         @Override
                         public boolean onMarkerClick(final Marker marker) {
 
-                            provider prvdr = new provider();
-                            prvdr = s.getValue(provider.class);
+                            //provider prvdr = new provider();
+                            //prvdr = s.getValue(provider.class);
+
                           // if(prvdr.getEmail()==mMarker.getTag()){
 
                     //        }
@@ -134,7 +167,7 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
 
                             final Dialog dialog = new Dialog(getContext());
                             dialog.setContentView(R.layout.model_marker_details);
-                            dialog.setTitle(prvdr.getArea());
+                            dialog.setTitle(p.getArea());
 
                             TextView area = dialog.findViewById(R.id.area);
                             TextView phone = dialog.findViewById(R.id.phone);
@@ -144,14 +177,18 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
                             Button book = dialog.findViewById(R.id.book_btn);
 
 
-                            area.setText("Area: " + prvdr.getArea());
-                            phone.setText("Phone: " + prvdr.getPhone());
-                            security.setText("Security: " +prvdr.getSecurity());
-
+                            area.setText("Area: " + p.getArea());
+                            phone.setText("Phone: " + p.getPhone());
+                            security.setText("Security: " +p.getSecurity());
+                            //Toast.makeText(getContext(), "list size" + prvdr.getArea() + "\n" + "values " + prvdr.getEmail(), Toast.LENGTH_SHORT).show();
                             book.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     Toast.makeText(getContext(), "Booked", Toast.LENGTH_LONG).show();
+
+
+                                    Intent intent = new Intent(getActivity(),ProviderActivity.class);
+                                    intent.putExtra("myjson",myJson);
                                     mMarker.remove();
                                     dialog.dismiss();
                                 }
@@ -171,7 +208,7 @@ public class MapDriver extends Fragment implements OnMapReadyCallback, LocationL
                     //}
 
 
-                    Toast.makeText(getContext(), "list size" + p.getArea() + "\n" + "values " + s.getValue(), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "list size" + p.getArea() + "\n" + "values " + s.getValue(), Toast.LENGTH_SHORT).show();
 
                     // i++;
                 }

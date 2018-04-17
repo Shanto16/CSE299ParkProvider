@@ -45,7 +45,7 @@ public class IntroductoryPages extends AppCompatActivity {
         btn_get_started.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(IntroductoryPages.this,LoginPage.class));
+                startActivity(new Intent(IntroductoryPages.this,DividePageActivity.class));
             }
         });
     }

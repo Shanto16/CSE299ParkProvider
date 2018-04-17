@@ -17,6 +17,9 @@ public class user {
     String vehicleModel;
     String licencenum;
 
+    public user(){
+
+    }
     public user(EditText name, EditText email, EditText password, EditText phone, EditText vehicleMake, EditText vehicleModel, EditText licencenum){
 
     }
@@ -38,11 +41,17 @@ public class user {
     public String getEmail() {
         return email;
     }
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public String getPassword() {
         return password;
     }
     public String getPhone() {
         return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getVehicleMake() {

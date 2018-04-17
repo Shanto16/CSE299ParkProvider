@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DividePageActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please select one."
+        android:textSize="20sp"
+        android:textColor="#af000000"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"/>
+
+
+    <Button
+        android:id="@+id/btn_driver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_btn_sign_up"
+
+        android:text="I am a Driver"
+        android:textColor="#fff" />
+
+
+    <Button
+        android:id="@+id/btn_provider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="I am a Provider "
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_btn_sign_up"
+        android:textColor="#fff"/>
+
+
+
+
+
+</LinearLayout>

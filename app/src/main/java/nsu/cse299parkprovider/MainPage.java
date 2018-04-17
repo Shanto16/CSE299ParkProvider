@@ -101,11 +101,12 @@ public class MainPage extends AppCompatActivity {
                     break;
 
                 case R.id.provider:
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    /*fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.main_container, new MapProvider());
                     fragmentTransaction.commit();
                     getSupportActionBar().setTitle("");
                     drawerLayout.closeDrawers();
+                    */
                     break;
 
                 case R.id.become:
